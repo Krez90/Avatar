@@ -1,51 +1,69 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
+    <head>
+        <title>Les formulaires</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="StyleAvatar.css">
+        <style>
+            label{display: inline-block;min-width: 200px;}
+        </style>
+    </head>
+    
+    <body style="background-image :url(img03.jpg)">
+             
+        <form method="post" action="traitement.php">
 
-<head>
-    <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
-    <title>Présentation de l'avatar</title>
-    <link rel="stylesheet" type="text/css" href="StyleAvatar.css">
-    <meta charset="UTF-8">
-</head>
-
-<body style="background-image:url(img03.jpg)">
-
-    <form action="/ma-page-de-traitement" method="post">
-        <div>
-            <label for="name">Nom : </label>
-            <input type="text" id="name" name="user_name">
-        </div>
-        <div>
-            <label for="mail">e-mail :</label>
-            <input type="email" id="mail" name="user_mail">
-        </div>
-        <div>
-            <label for="msg">Message :</label>
-            <textarea id="msg" name="user_message"></textarea>
-        </div>
-    </form>
-    <div class="button">
-        <button type="submit">Envoyer le message</button>
-    </div>
-
-
-
-
-
-
-</body>
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
-</body>
-
+            <label for='prenom'>Entrez votre prénom svp : </label>
+            <input type='text' name='prenom' id='prenom' maxlength='20' required>
+            <span id='missPrenom'></span><br>
+            
+            <label for='mail'>Entrez votre mail : </label>
+            <input type='email' name='mail' id='mail' required><br>
+            
+            <label for='tel'>Numéro de téléphone :</label>
+            <input type='tel' name='tel' id='tel' required><br>
+                
+            <input type='submit' value='Valider' id='bouton_envoi'>
+        </form>
+        
+        <script>
+            var formValid = document.getElementById('bouton_envoi');
+            var prenom = document.getElementById('prenom');
+            var missPrenom = document.getElementById('missPrenom');
+            
+            formValid.addEventListener('click', validation);
+            
+            function validation(event){
+                //Si le champ est vide
+                if (prenom.validity.valueMissing){
+                    event.preventDefault();
+                    missPrenom.textContent = 'Prénom manquant';
+                    missPrenom.style.color = 'red';
+                }
+            }
+        </script>
+                <script>
+                        var formValid = document.getElementById('bouton_envoi');
+                        var prenom = document.getElementById('prenom');
+                        var missPrenom = document.getElementById('missPrenom');
+                        var prenomValid = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
+                        
+                        formValid.addEventListener('click', validation);
+                        
+                        function validation(event){
+                            //Si le champ est vide
+                            if (prenom.validity.valueMissing){
+                                event.preventDefault();
+                                missPrenom.textContent = 'Prénom manquant';
+                                missPrenom.style.color = 'red';
+                            //Si le format de données est incorrect
+                            }else if (prenomValid.test(prenom.value) == false){
+                                event.preventDefault();
+                                missPrenom.textContent = 'Format incorrect';
+                                missPrenom.style.color = 'orange';
+                            }else{ 
+                            }
+                        }
+                    </script>
+    </body>
 </html>
